@@ -103,6 +103,6 @@ accuracy = total_correct / total_num
 print("test accuracy: ", accuracy)
 
 x, y = next(iter(test_loader))
-out = net(x = x.view(x.size(0), 28*28))
+out = net(x=x.view(x.size(0), 28*28))
 pred = out.argmax(dim=1)
 plot_image(x, pred, "test sample")
