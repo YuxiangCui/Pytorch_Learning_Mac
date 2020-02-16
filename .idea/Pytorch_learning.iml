@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/pytorch_learning_02_MNIST" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pytorch_learning_01" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pytorch_learning_03_tensor" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -12,8 +13,5 @@
   </component>
   <component name="PyDocumentationSettings">
     <option name="renderExternalDocumentation" value="true" />
-  </component>
-  <component name="TestRunnerService">
-    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
   </component>
 </module>
