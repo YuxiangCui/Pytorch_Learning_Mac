@@ -78,6 +78,11 @@ print(b.expand(-1, 32, -1, -4).shape)  # torch.Size([1, 32, 1, -4])
 # 不可以n->N
 # print(b.expand(-1, 33, -1, -1).shape)  # torch.Size([1, 32, 1, 1])
 
+# expand_as
+a = torch.rand(4, 32, 14, 14)
+b = torch.rand(1, 32, 1, 1)
+b = b.expand_as(a)
+print(b.shape)
 
 # repeat
 # repeat的参数表示的是该维度copy的次数
