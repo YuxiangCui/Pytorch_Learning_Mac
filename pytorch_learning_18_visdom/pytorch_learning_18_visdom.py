@@ -39,18 +39,18 @@ train_loader = torch.utils.data.DataLoader(
         download=False,
         transform=transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,))
+            # transforms.Normalize((0.1307,), (0.3081,))
         ])),
     batch_size=batch_size,
     shuffle=True)
 test_loader = torch.utils.data.DataLoader(
     torchvision.datasets.MNIST(
-        '../pytorch_learning_02_MNIST/mnist_data/',
+        '../pytorch_learning_02_MNIST/mnist_data',
         train=False,
         download=False,
         transform=transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,))
+            # transforms.Normalize((0.1307,), (0.3081,))
         ])),
     batch_size=batch_size,
     shuffle=False)
@@ -92,10 +92,9 @@ for epoch in range(epochs):
 
     viz.line([[test_loss, correct / len(test_loader.dataset)]],
              [global_step], win='test', update='append')
-    viz.images(data.view(-1, 1, 28, 28), win='x')
+    viz.images(data.view(-1, 1, 28, 28), win='test_img')
     viz.text(str(pred.numpy()), win='pred',
              opts=dict(title='pred'))
-
 
     test_loss /= len(test_loader.dataset)
     print('\nTest Set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
