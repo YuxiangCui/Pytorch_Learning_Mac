@@ -84,3 +84,58 @@ for epoch in range(epochs):
             test_loss, correct, len(test_loader.dataset), 100. * correct / len(test_loader.dataset)))
 
 
+
+#
+# Train Epoch:0[0/60000 (0%]      Loss:2.599304
+# Train Epoch:0[20000/60000 (33%] Loss:1.317541
+# Train Epoch:0[40000/60000 (67%] Loss:0.889058
+#
+# Test Set: Average loss: 0.0040, Accuracy: 7498/10000 (75%)
+# Train Epoch:1[0/60000 (0%]      Loss:0.648577
+# Train Epoch:1[20000/60000 (33%] Loss:0.926337
+# Train Epoch:1[40000/60000 (67%] Loss:0.772714
+#
+# Test Set: Average loss: 0.0036, Accuracy: 7993/10000 (80%)
+# Train Epoch:2[0/60000 (0%]      Loss:0.617835
+# Train Epoch:2[20000/60000 (33%] Loss:0.716179
+# Train Epoch:2[40000/60000 (67%] Loss:0.581642
+#
+# Test Set: Average loss: 0.0026, Accuracy: 8317/10000 (83%)
+# Train Epoch:3[0/60000 (0%]      Loss:0.542941
+# Train Epoch:3[20000/60000 (33%] Loss:0.491907
+# Train Epoch:3[40000/60000 (67%] Loss:0.604417
+#
+# Test Set: Average loss: 0.0023, Accuracy: 8407/10000 (84%)
+# Train Epoch:4[0/60000 (0%]      Loss:0.538913
+# Train Epoch:4[20000/60000 (33%] Loss:0.426344
+# Train Epoch:4[40000/60000 (67%] Loss:0.485947
+#
+# Test Set: Average loss: 0.0022, Accuracy: 8468/10000 (85%)
+# Train Epoch:5[0/60000 (0%]      Loss:0.470551
+# Train Epoch:5[20000/60000 (33%] Loss:0.493053
+# Train Epoch:5[40000/60000 (67%] Loss:0.487335
+#
+# Test Set: Average loss: 0.0021, Accuracy: 8516/10000 (85%)
+# Train Epoch:6[0/60000 (0%]      Loss:0.405175
+# Train Epoch:6[20000/60000 (33%] Loss:0.493235
+# Train Epoch:6[40000/60000 (67%] Loss:0.451716
+#
+# Test Set: Average loss: 0.0021, Accuracy: 8533/10000 (85%)
+# Train Epoch:7[0/60000 (0%]      Loss:0.350127
+# Train Epoch:7[20000/60000 (33%] Loss:0.423546
+# Train Epoch:7[40000/60000 (67%] Loss:0.491799
+#
+# Test Set: Average loss: 0.0020, Accuracy: 8566/10000 (86%)
+# Train Epoch:8[0/60000 (0%]      Loss:0.274815
+# Train Epoch:8[20000/60000 (33%] Loss:0.398818
+# Train Epoch:8[40000/60000 (67%] Loss:0.325850
+#
+# Test Set: Average loss: 0.0020, Accuracy: 8584/10000 (86%)
+# Train Epoch:9[0/60000 (0%]      Loss:0.368150
+# Train Epoch:9[20000/60000 (33%] Loss:0.292812
+# Train Epoch:9[40000/60000 (67%] Loss:0.256455
+#
+# Test Set: Average loss: 0.0019, Accuracy: 8603/10000 (86%)
+#
+# Process finished with exit code 0
+
