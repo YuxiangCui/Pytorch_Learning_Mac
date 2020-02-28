@@ -7,20 +7,20 @@ class ResidualBlock(nn.Module):
     """
     ResNet Block
     """
-    def __init__(self, inchannel, outchannel, stride=1):
+    def __init__(self, in_channel, out_channel, stride=1):
         super(ResidualBlock, self).__init__()
         self.left = nn.Sequential(
-            nn.Conv2d(inchannel, outchannel, kernel_size=3, stride=stride, padding=1, bias=False),
-            nn.BatchNorm2d(outchannel),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(outchannel, outchannel, kernel_size=3, stride=1, padding=1, bias=False),
-            nn.BatchNorm2d(outchannel)
+            nn.Conv2d(in_channel, out_channel, kernel_size=3, stride=stride, padding=1, bias=False),
+            nn.BatchNorm2d(out_channel),
+            nn.LeakyReLU(inplace=True),
+            nn.Conv2d(out_channel, out_channel, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm2d(out_channel)
         )
         self.shortcut = nn.Sequential()
-        if stride != 1 or inchannel != outchannel:
+        if stride != 1 or in_channel != out_channel:
             self.shortcut = nn.Sequential(
-                nn.Conv2d(inchannel, outchannel, kernel_size=1, stride=stride, bias=False),
-                nn.BatchNorm2d(outchannel)
+                nn.Conv2d(in_channel, out_channel, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(out_channel)
             )
 
     def forward(self, x):
@@ -29,10 +29,11 @@ class ResidualBlock(nn.Module):
         out = F.relu(out)
         return out
 
+
 class ResNet(nn.Module):
     def __init__(self, ResidualBlock, num_classes=10):
         super(ResNet, self).__init__()
-        self.inchannel = 64
+        self.in_channel = 64
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(64),
@@ -48,8 +49,8 @@ class ResNet(nn.Module):
         strides = [stride] + [1] * (num_blocks - 1)   #strides=[1,1]
         layers = []
         for stride in strides:
-            layers.append(block(self.inchannel, channels, stride))
-            self.inchannel = channels
+            layers.append(block(self.in_channel, channels, stride))
+            self.in_channel = channels
         return nn.Sequential(*layers)
 
     def forward(self, x):
