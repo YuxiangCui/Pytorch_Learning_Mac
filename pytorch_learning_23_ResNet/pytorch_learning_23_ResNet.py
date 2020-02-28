@@ -9,7 +9,8 @@ class ResidualBlock(nn.Module):
     """
     def __init__(self, in_channel, out_channel, stride=1):
         super(ResidualBlock, self).__init__()
-        self.left = nn.Sequential(
+        self.ResBlock = nn.Sequential(
+            # 通过增大stride可以减少channel数目
             nn.Conv2d(in_channel, out_channel, kernel_size=3, stride=stride, padding=1, bias=False),
             nn.BatchNorm2d(out_channel),
             nn.LeakyReLU(inplace=True),
@@ -18,13 +19,14 @@ class ResidualBlock(nn.Module):
         )
         self.shortcut = nn.Sequential()
         if stride != 1 or in_channel != out_channel:
+            # [b, in_channel, h, w] => [b, out_channel, h, w]
             self.shortcut = nn.Sequential(
                 nn.Conv2d(in_channel, out_channel, kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(out_channel)
             )
 
     def forward(self, x):
-        out = self.left(x)
+        out = self.ResBlock(x)
         out += self.shortcut(x)
         out = F.relu(out)
         return out
@@ -39,14 +41,14 @@ class ResNet(nn.Module):
             nn.BatchNorm2d(64),
             nn.ReLU(),
         )
-        self.layer1 = self.make_layer(ResidualBlock, 64,  2, stride=1)
-        self.layer2 = self.make_layer(ResidualBlock, 128, 2, stride=2)
-        self.layer3 = self.make_layer(ResidualBlock, 256, 2, stride=2)
-        self.layer4 = self.make_layer(ResidualBlock, 512, 2, stride=2)
+        self.layer1 = self.build_layer(ResidualBlock, 64,  2, stride=1)
+        self.layer2 = self.build_layer(ResidualBlock, 128, 2, stride=2)
+        self.layer3 = self.build_layer(ResidualBlock, 256, 2, stride=2)
+        self.layer4 = self.build_layer(ResidualBlock, 512, 2, stride=1)  # 一般到这个维度差不多了
         self.fc = nn.Linear(512, num_classes)
 
-    def make_layer(self, block, channels, num_blocks, stride):
-        strides = [stride] + [1] * (num_blocks - 1)   #strides=[1,1]
+    def build_layer(self, block, channels, num_blocks, stride):
+        strides = [stride] + [1] * (num_blocks - 1)   # strides=[1,1]
         layers = []
         for stride in strides:
             layers.append(block(self.in_channel, channels, stride))
@@ -66,7 +68,21 @@ class ResNet(nn.Module):
 
 
 def ResNet18():
-
     return ResNet(ResidualBlock)
 
 
+def main():
+    # test 检查维度是否相同
+    blk = ResidualBlock(64, 128, stride=2)
+    tmp = torch.randn(2, 3, 32, 32)
+    out = blk(tmp)
+    print("block: ", out.shape)
+
+    x = torch.randn(2, 3, 32, 32)
+    model = ResNet()
+    out = model(x)
+    print("ResNet: ", out.shape)
+
+
+if __name__ == '__main__':
+    main()

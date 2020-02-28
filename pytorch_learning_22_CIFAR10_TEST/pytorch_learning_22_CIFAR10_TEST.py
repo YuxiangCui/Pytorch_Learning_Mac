@@ -12,6 +12,8 @@ from torchvision import datasets
 from torchvision import transforms
 from torch import nn
 from lenet5 import Lenet_5
+from pytorch_learning_23_ResNet import ResNet
+
 
 
 def main():
@@ -34,6 +36,7 @@ def main():
     # criterion = nn.CrossEntropyLoss().to(device)
 
     criterion = nn.CrossEntropyLoss()
+    # model = ResNet()
     model = Lenet_5()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     print(model)

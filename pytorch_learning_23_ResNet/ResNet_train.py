@@ -16,16 +16,15 @@ parser.add_argument('--net', default='./model/Resnet18.pth', help="path to net (
 args = parser.parse_args()
 
 # 超参数设置
-EPOCH = 1   #遍历数据集次数
+EPOCH = 1   # 遍历数据集次数
 pre_epoch = 0  # 定义已经遍历数据集的次数
-BATCH_SIZE = 128      #批处理尺寸(batch_size)
-LR = 0.01        #学习率
-
+BATCH_SIZE = 128      # 批处理尺寸(batch_size)
+LR = 0.01        # 学习率
 
 
 # 准备数据集并预处理
 transform_train = transforms.Compose([
-    transforms.RandomCrop(32, padding=4),  #先四周填充0，在吧图像随机裁剪成32*32
+    transforms.RandomCrop(32, padding=4),  # 先四周填充0，在吧图像随机裁剪成32*32
     transforms.RandomHorizontalFlip(),  #图像一半的概率翻转，一半的概率不翻转
     transforms.ToTensor(),
     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)), #R,G,B每层的归一化用到的均值和方差
