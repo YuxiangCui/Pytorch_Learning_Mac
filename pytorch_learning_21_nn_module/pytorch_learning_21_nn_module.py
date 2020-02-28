@@ -12,4 +12,9 @@
 # 自定义的话也要继承自 nn.module 例如nn里面没有的flatten操作层，reshape操作等
 # nn.Parameter()包装自己的变量进入优化器参数内，require_grad
 
+
+# 与 functional 里面函数的区别
+# module里面的都是类，定义后调用
+# functional里面的都是函数，可以直接调用
+
 import torch
