@@ -16,6 +16,7 @@ Icon
 
 .idea/
 pytorch_learning_dataset/
+.gitignore
 
 
 # Files that might appear in the root of a volume
