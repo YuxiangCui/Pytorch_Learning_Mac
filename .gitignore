@@ -15,8 +15,8 @@ Icon
 ._*
 
 .idea/
-pytorch_learning_dataset
-.gitignore
+pytorch_learning_dataset/
+
 
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
