@@ -33,7 +33,7 @@ class ResidualBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, ResidualBlock, num_classes=10):
+    def __init__(self, num_classes=10):
         super(ResNet, self).__init__()
         self.in_channel = 64
         self.conv1 = nn.Sequential(
@@ -56,13 +56,18 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
+        # print(x.shape)
         out = self.conv1(x)
         out = self.layer1(out)
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
-        out = F.avg_pool2d(out, 4)
+        # print('before pool', out.shape)
+        # out = F.avg_pool2d(out, 8)
+        out = F.adaptive_avg_pool2d(out, [1, 1])
+        # print('after pool', out.shape)
         out = out.view(out.size(0), -1)
+        # print(out.shape)
         out = self.fc(out)
         return out
 
@@ -70,19 +75,19 @@ class ResNet(nn.Module):
 def ResNet18():
     return ResNet(ResidualBlock)
 
-
-def main():
-    # test 检查维度是否相同
-    blk = ResidualBlock(64, 128, stride=2)
-    tmp = torch.randn(2, 3, 32, 32)
-    out = blk(tmp)
-    print("block: ", out.shape)
-
-    x = torch.randn(2, 3, 32, 32)
-    model = ResNet()
-    out = model(x)
-    print("ResNet: ", out.shape)
-
-
-if __name__ == '__main__':
-    main()
+#
+# def main():
+#     # test 检查维度是否相同
+#     blk = ResidualBlock(64, 128, stride=2)
+#     tmp = torch.randn(2, 64, 32, 32)
+#     out = blk(tmp)
+#     print("block: ", out.shape)
+#
+#     x = torch.randn(2, 3, 32, 32)
+#     model = ResNet()
+#     out = model(x)
+#     print("ResNet: ", out.shape)
+#
+#
+# if __name__ == '__main__':
+#     main()
