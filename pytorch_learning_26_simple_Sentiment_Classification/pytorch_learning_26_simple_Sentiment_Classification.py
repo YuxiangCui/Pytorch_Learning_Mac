@@ -5,6 +5,8 @@
 
 import torch
 import torch.nn as nn
+from torch import optim
+from torchtext import data
 
 TEXT = data.Field(tokensize='spacy')
 LABEL = data.LabelField(dtype=torch.float)
@@ -15,4 +17,4 @@ class RNN(nn.Module):
         super(RNN, self).__init__()
         self.embbeding = nn.Embedding(vocab_size, embedding_dim)
         self.rnn = nn.LSTM(embedding_dim, hidden_dim, num_layers=2, bidirectional=True, dropout=0.5)
-        
+
