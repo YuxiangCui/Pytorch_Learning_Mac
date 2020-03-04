@@ -1,3 +1,8 @@
+# 引入预训练模型
+# 迁移学习
+# 当数据量很少时，模型又相对于数据复杂度过于复杂，很容易产生过拟合
+# 考虑当前数据属于更大的数据库中，例如ImageNet，那么根据预训练模型进行fine-tune可以得到更好地效果
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
