@@ -5,7 +5,8 @@ import visdom
 import torchvision
 import torchvision.transforms as transforms
 import argparse
-from pytorch_learning_27_DIY_Dataset_CNN import ResNet
+# from pytorch_learning_27_DIY_Dataset_CNN import ResNet
+from torchvision.models import resnet18
 from DIY_dataloader import DIY_dataset
 from torch.utils.data import Dataset, DataLoader
 
@@ -23,6 +24,14 @@ LR = 1e-3
 root = '../pytorch_learning_dataset/pokeman'
 
 viz = visdom.Visdom()
+
+class Flatten(nn.Module):
+    def __init__(self):
+        super(Flatten, self).__init__()
+
+    def forward(self, x):
+        shape = torch.prod(torch.tensor(x.shape[1:])).item()
+        return x.view(-1,shape)
 
 
 def evaluate(model, loader):
@@ -47,7 +56,14 @@ val_loader = DataLoader(val_db, batch_size=BATCH_SIZE, num_workers=2)
 test_loader = DataLoader(test_db, batch_size=BATCH_SIZE, num_workers=2)
 
 # 模型定义-ResNet
-net = ResNet().to(device)
+# net = ResNet().to(device)
+trained_model = resnet18(pretrained=True)
+net = nn.Sequential(*list(trained_model.children())[:-1],  # torch.Size([2, 512, 1, 1])
+                      Flatten(),
+                      nn.Linear(512, 5)
+                      ).to(device)
+# x = torch.randn(2, 3, 224, 224)
+# print(model(x).shape)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(net.parameters(), lr=LR)
@@ -102,4 +118,6 @@ if __name__ == "__main__":
     print('test accuracy: ', test_acc)
 
 
-
+# best accuracy:  0.9527896995708155  best epoch:  6
+# loaded from check point
+# test accuracy:  0.9316239316239316
