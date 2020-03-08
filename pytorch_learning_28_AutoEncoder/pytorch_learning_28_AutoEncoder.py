@@ -53,12 +53,12 @@ class AutoEncoder(nn.Module):
         return x, None
 
 
-class VAE(nn.Module):
+class VariationalAutoEncoder(nn.Module):
 
 
 
     def __init__(self):
-        super(VAE, self).__init__()
+        super(VariationalAutoEncoder, self).__init__()
 
 
         # [b, 784] => [b, 20]
@@ -82,7 +82,7 @@ class VAE(nn.Module):
             nn.Sigmoid()
         )
 
-        self.criteon = nn.MSELoss()
+        self.criterion = nn.MSELoss()
 
     def forward(self, x):
         """
@@ -129,9 +129,9 @@ def main():
     x, _ = iter(mnist_train).next()
     print('x:', x.shape)
 
-    device = torch.device('cuda')
-    model = AutoEncoder().to(device)
-    #model = VAE().to(device)
+    device = torch.device('cpu')
+    # model = AutoEncoder().to(device)
+    model = VariationalAutoEncoder().to(device)
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
     print(model)
