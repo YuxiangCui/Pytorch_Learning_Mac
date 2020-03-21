@@ -3,3 +3,5 @@ from Long's classes
 
 git_learning at the same time
 from Bilibili and Liao's website
+
+tested on MNIST and CIFAR dataset
